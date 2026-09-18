@@ -1,0 +1,51 @@
+# 콘텐츠 안전 검증(scripts/content_safety_check.sh) 통과 시에만 GitHub Pages에 배포한다.
+#
+# 주의: step의 `name:` 필드에 비-ASCII(한글 등) 문자가 있으면 `environment: github-pages`
+# + actions/deploy-pages 조합에서 워크플로 전체가 job 생성도 안 된 채 0초 만에 실패한다
+# (workflow_dispatch 트리거도 인식 못 함). step name은 반드시 ASCII만 사용할 것. 설명은
+# 위처럼 별도 주석 줄로.
+name: Content safety check + Pages deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  safety-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: content safety check
+        run: bash scripts/content_safety_check.sh
+
+  deploy:
+    needs: safety-check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # index.html(최신 호) + reports/*.html(날짜별 아카이브, 이메일 링크가 가리키는 대상)만
+      # 배포 산출물로 쓴다 — 스크립트·README 등은 제외.
+      - name: build site dir
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          mkdir -p _site/reports
+          cp reports/*.html _site/reports/ 2>/dev/null || true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
