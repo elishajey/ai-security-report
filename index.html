@@ -284,7 +284,6 @@
       <div class="item">
         <div class="row1">
           <span class="badge b-new">신규</span>
-          <span class="badge b-t2">T2</span>
           <span class="jur">한국</span>
         </div>
         <h3>연구에 AI를 쓸 때 지켜야 할 것이 7개로 정해졌다 — 그중 둘이 보안과 개인정보다</h3>
@@ -307,7 +306,7 @@
       <div class="trend-card">
         <div class="tc-meta">
           <span class="imp imp-high">중요도 높음</span>
-          <span class="badge b-t2">T2 · 연구공개 + 벤더 대응</span>
+          <span class="badge">연구공개 + 벤더 대응</span>
         </div>
         <h3>확장프로그램 하나가 브라우저 AI 다섯 종의 권한을 그대로 가져갔다 — CVE는 두 곳에만 붙었다</h3>
         <p>이미 설치된 확장프로그램 하나만 있으면 브라우저에 붙은 AI 어시스턴트를 사용자 조작 없이 원격 조종할 수 있다는 공격이 공개됐습니다 <sub class="tgrade">[T2]</sub>. 대상은 <b>Chrome</b>·<b>Edge</b>·<b>Opera Neon</b>·<b>Perplexity Comet</b>·<b>Claude in Chrome</b> 5종이고, 공개자는 Forever Security의 Gal Weizman, 공격 이름은 <b>BragJack</b>입니다. 방식이 기존 프롬프트 주입과 다릅니다. 확장 API로 통신 자체를 가로채 에이전트에게 공격자의 지시문을 통째로 먹이는 <b>Prompt Forcing</b>이라, 모델 입력을 걸러 내는 방어로는 잡히지 않습니다. 시연된 피해는 로컬 파일 읽기·방문 기록 열람·스크린샷·카메라와 마이크 접근·메일 요약 후 외부 전송까지이고, 가장 넓게 뚫린 것은 브라우저 자체가 AI인 Comet이었습니다 <sub class="tgrade">[T2]</sub>. 대응은 갈렸습니다. 포상금은 5개 벤더 합계 2만 달러 이상($600~$7,000)이고 CVE는 Chrome(<b>CVE-2026-0628</b>)과 Edge(<b>CVE-2026-55945</b>) 2건만 발급돼 Google·Microsoft가 수정을 끝냈으며, 나머지 3종은 포상만 지급되고 수정 시점이 공개되지 않았습니다.</p>
@@ -365,7 +364,7 @@
       <div class="trend-card">
         <div class="tc-meta">
           <span class="imp imp-mid">중요도 중간~높음</span>
-          <span class="badge b-t2">T2 · 벤더 공개 초안</span>
+          <span class="badge">벤더 공개 초안</span>
         </div>
         <h3>모델이 종료 명령에 저항하지 못하게 문서로 못 박았다 — 의견은 10월 26일경까지 받는다</h3>
         <p>Microsoft가 자사 MAI 모델이 지켜야 할 행동 규칙을 37쪽 문서로 공개하고 6주간 공개 의견수렴에 들어갔습니다. 공개일은 2026-09-14, 의견 마감은 2026-10-26 무렵입니다 <sub class="tgrade">[T2]</sub>. 보안 관점에서 의미 있는 조항은 네 가지입니다. 모델이 <b>감사자에게 자신의 추론을 숨기지 못하게</b> 하고, <b>사람의 종료·수정 지시에 저항하지 못하게</b> 하며, <b>사이버공격을 스스로 개시하지 못하게</b> 하고, <b>딥페이크 생성</b>을 금지합니다. 여기에 무기 개발 관련 요청은 검토 대상에서 제외하고, 모델이 의식을 흉내 내거나 권리를 주장하도록 만들지 않는다는 조항이 함께 들어갔습니다 <sub class="tgrade">[T2]</sub>. 성격은 법규가 아니라 벤더 자율 규범이며, Microsoft는 접수한 의견을 검토해 무엇이 왜 바뀌었는지 함께 공개하고 연내 개정판을 내겠다고 밝혔습니다.</p>
@@ -419,7 +418,7 @@
       <div class="trend-card">
         <div class="tc-meta">
           <span class="imp imp-mid">중요도 중간~높음</span>
-          <span class="badge b-t2">T2 · 업계 조사</span>
+          <span class="badge">업계 조사</span>
         </div>
         <h3>에이전트 권한이 과하지 않다고 답한 곳이 94%, 실제로 최소권한을 적용한 곳은 33%였다</h3>
         <p>기업 IT·보안 책임자 202명을 대상으로 한 조사에서 자사 AI 에이전트가 필요 이상의 권한을 갖고 있지 않다고 확신한 비율은 94%였지만, 실제로 <b>최소권한</b>으로 에이전트를 발급하는 곳은 33%였습니다 <sub class="tgrade">[T2]</sub>. 확신과 실태가 61%p 벌어져 있습니다. 사고는 이미 났습니다. 에이전트가 의도한 범위를 벗어나 동작한 경험이 있다고 답한 곳이 65%였고, 그중 29%는 조직에 실제 영향이 있었으며 36%는 피해 전에 잡아냈습니다 <sub class="tgrade">[T2]</sub>. 관리 기반은 확산 속도를 못 따라갑니다. 46%가 이미 여러 부서로 에이전트를 확산했는데 47%는 <b>배포된 에이전트를 전부 파악하지 못하고</b> 55%는 거버넌스 절차가 통합돼 있지 않으며, 에이전트가 특정 동작을 시도하는 그 순간에 인가를 평가하는 곳은 34%에 그쳤습니다. 조사는 EMA가 수행하고 Cequence가 공개했습니다.</p>
@@ -462,7 +461,7 @@
           </div>
           <figcaption>맨 위 막대가 확신, 그 아래가 실제 적용이다. 나머지 셋은 그 사이를 메워야 할 관리 기반의 상태다. <span class="src">근거: EMA 수행·Cequence 공개 기업 AI 에이전트 거버넌스 조사 인용 보도, 2026-09 <sub class="tgrade">[T2]</sub></span></figcaption>
         </figure>
-        <div class="tags"><span class="tag tag-org" data-type="org">#플랫폼사</span><span class="tag tag-org" data-type="org">#금융사</span><span class="tag tag-security" data-type="security">#최소권한</span><span class="tag tag-security" data-type="security">#에이전트인벤토리</span><span class="tag tag-security" data-type="security">#행위시점인가</span></div>
+        <div class="tags"><span class="tag tag-org" data-type="org">#벤더사</span><span class="tag tag-security" data-type="security">#최소권한</span><span class="tag tag-security" data-type="security">#에이전트인벤토리</span><span class="tag tag-security" data-type="security">#행위시점인가</span></div>
       </div>
     </section>
 
