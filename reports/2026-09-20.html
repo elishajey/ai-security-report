@@ -1,0 +1,535 @@
+<title>AI SEC Pulse</title>
+<meta name="description" content="법·컴플라이언스 모니터링, AI 보안·서비스 동향 3선(도해), 솔루션·컨퍼런스 안내를 담은 일일 브리핑 — 2026-09-04 호">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg: #e9edf1;
+    --paper: #ffffff;
+    --paper-2: #f5f7f9;
+    --ink: #17202c;
+    --ink-soft: #3c4858;
+    --muted: #62707f;
+    --line: #d7dee5;
+    --line-strong: #b6c0cb;
+    --accent: #0d7c86;
+    --accent-soft: #d2eaeb;
+    --acq: #ad5019;
+    --new: #2d7a4d;
+    --flag: #916b00;
+    --hi: #b4381f;        /* importance high */
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1016;
+      --paper: #151c25;
+      --paper-2: #1a222d;
+      --ink: #e6ebf1;
+      --ink-soft: #b7c1cd;
+      --muted: #8a96a5;
+      --line: #29323d;
+      --line-strong: #3a4551;
+      --accent: #3cb8c3;
+      --accent-soft: #102f35;
+      --acq: #d9853f;
+      --new: #5bad7c;
+      --flag: #d5aa3d;
+      --hi: #e07a5f;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1016; --paper: #151c25; --paper-2: #1a222d;
+    --ink: #e6ebf1; --ink-soft: #b7c1cd; --muted: #8a96a5;
+    --line: #29323d; --line-strong: #3a4551;
+    --accent: #3cb8c3; --accent-soft: #102f35;
+    --acq: #d9853f; --new: #5bad7c; --flag: #d5aa3d; --hi: #e07a5f;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .mail { max-width: 680px; margin: 0 auto; padding: 28px 16px 80px; }
+  .envelope {
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 4px; padding: 10px 14px; margin-bottom: 14px;
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted);
+  }
+  .envelope b { color: var(--ink-soft); font-weight: 600; }
+
+  .sheet {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(20,28,40,.05), 0 14px 40px -20px rgba(20,28,40,.22);
+  }
+
+  header.rpt {
+    padding: 30px 28px 22px; border-bottom: 3px solid var(--ink);
+  }
+  header.rpt .brandline {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
+  }
+  header.rpt h1 {
+    font-family: "Archivo", sans-serif; font-weight: 700;
+    font-size: 2rem; letter-spacing: -.02em; margin: 8px 0 6px;
+  }
+  header.rpt .date {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--ink-soft);
+  }
+  header.rpt .cadence {
+    margin-top: 12px; font-size: 12.5px; color: var(--muted);
+  }
+  header.rpt .byline {
+    text-align: right; margin: 10px 0 0; font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; color: var(--muted);
+  }
+
+  section.blk { padding: 26px 28px; border-top: 1px solid var(--line); }
+  section.blk:first-of-type { border-top: 0; }
+  .sec-tag {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;
+  }
+  .sec-no {
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 12px;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 1px 6px;
+  }
+  .sec-tag h2 {
+    font-family: "Archivo", sans-serif; font-weight: 700; font-size: 1.2rem;
+    letter-spacing: -.01em; margin: 0;
+  }
+  .sec-lede { margin: 0 0 18px; font-size: .9rem; color: var(--muted); }
+  .board-link { margin: 0 0 16px; margin-left: 31.2px; font-size: .85rem; }
+  .board-link a {
+    color: var(--accent); font-weight: 600; text-decoration: none;
+    background: var(--accent-soft); padding: 3px 10px; border-radius: 4px; display: inline-block;
+  }
+  .board-link a::after { content: " ↗"; font-weight: 400; }
+
+  /* ---- section 1 : compliance items ---- */
+  .item { padding: 14px 0; border-top: 1px dashed var(--line); }
+  .item:first-child { border-top: 0; padding-top: 0; }
+  .item .row1 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .badge {
+    font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .05em;
+    padding: 1px 6px; border-radius: 2px; border: 1px solid currentColor; white-space: nowrap;
+  }
+  .b-new { color: var(--new); }
+  .b-upd { color: var(--accent); }
+  .b-hold { color: var(--muted); }
+  .b-t1 { color: var(--accent); }
+  .b-t2 { color: var(--ink-soft); }
+  .b-t3 { color: var(--flag); }
+  .jur {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted);
+  }
+  .item h3 {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: .98rem;
+    margin: 6px 0 4px;
+  }
+  .item p { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+  .item .src {
+    margin-top: 5px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--muted);
+  }
+  .item .src a { color: var(--accent); word-break: break-all; }
+
+  /* ---- 자세히 보기 드롭다운 (§1·§2 공용) ---- */
+  .more { margin-top: 8px; }
+  .more > summary {
+    cursor: pointer; font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    font-weight: 600; color: var(--accent); list-style: revert;
+  }
+  .more > summary::marker { color: var(--accent); }
+  .more-body {
+    margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line);
+    font-size: .82rem; color: var(--ink-soft);
+  }
+  .more-body p { margin: 0 0 8px; }
+  .more-body p:last-child { margin-bottom: 0; }
+
+  .quiet-note {
+    margin-top: 16px; padding: 10px 12px; background: var(--paper-2);
+    border-left: 3px solid var(--line-strong); font-size: .84rem; color: var(--muted);
+  }
+
+  /* ---- section 2 : trend cards with figures ---- */
+  .trend-card { padding: 20px 0; border-top: 1px solid var(--line); }
+  .trend-card:first-of-type { border-top: 0; padding-top: 4px; }
+  .tc-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .imp {
+    font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em;
+    padding: 1px 6px; border-radius: 2px;
+  }
+  .imp-high { background: transparent; color: var(--hi); border: 2px solid var(--hi); font-weight: 700; }
+  .imp-mid { background: #0d7c86; color: #fff; }
+  .trend-card h3 {
+    font-family: "Archivo", sans-serif; font-weight: 600; font-size: 1.05rem;
+    letter-spacing: -.005em; margin: 0 0 6px; text-wrap: balance;
+  }
+  .trend-card > p { margin: 0 0 14px; font-size: .89rem; color: var(--ink-soft); }
+  figure {
+    margin: 0; background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 3px; padding: 14px 12px 8px;
+  }
+  figure .scroll-x { overflow-x: auto; }
+  svg.dg { display: block; width: 100%; height: auto; color: var(--ink); min-width: 520px; }
+  figcaption {
+    margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line);
+    font-size: .8rem; color: var(--muted);
+  }
+  figcaption .src { font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+
+  /* svg helpers */
+  .s-box { fill: var(--paper); stroke: var(--line-strong); stroke-width: 1.4; }
+  .s-box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+  .s-lab { fill: var(--ink); font-family: "IBM Plex Sans", sans-serif; font-size: 12px; }
+  .s-sub { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .02em; }
+  .s-arw { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+  .s-axis { stroke: var(--line-strong); stroke-width: 1.4; }
+  .s-tick { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+  .dot-acq { fill: var(--acq); }
+  .dot-new { fill: var(--new); }
+  .t-acq { fill: var(--acq); color: var(--acq); }
+  .t-new { fill: var(--new); color: var(--new); }
+  .t-accent { fill: var(--accent); color: var(--accent); }
+  .node-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .head-mut { fill: var(--muted); }
+  .head-acc { fill: var(--accent); }
+  .link-acc { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+
+  /* ---- section 3 : solutions + events ---- */
+  .sub-h {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); margin: 18px 0 8px;
+  }
+  .sub-h:first-child { margin-top: 0; }
+  .sol { padding: 10px 0; border-top: 1px dashed var(--line); font-size: .88rem; }
+  .sol:first-of-type { border-top: 0; }
+  .sol b { font-weight: 600; }
+  .sol .m { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+
+  .evt {
+    display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: center;
+    padding: 12px 0; border-top: 1px dashed var(--line);
+  }
+  .evt:first-of-type { border-top: 0; }
+  .evt .when {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--accent);
+  }
+  .evt .name { font-weight: 600; font-size: .92rem; margin: 2px 0 2px; }
+  .evt .where { font-size: .82rem; color: var(--muted); }
+  .apply {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .04em;
+    text-decoration: none; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 3px; padding: 6px 12px; white-space: nowrap;
+  }
+  .apply:hover { background: var(--accent-soft); }
+
+  footer.rpt-foot {
+    padding: 20px 28px 26px; border-top: 3px solid var(--ink);
+    font-size: .8rem; color: var(--muted);
+  }
+  footer.rpt-foot p { margin: 0 0 6px; }
+  footer.rpt-foot code { font-family: "IBM Plex Mono", monospace; font-size: .76rem; color: var(--ink-soft); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0; }
+  .legend span { font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+  .tgrade { color: var(--muted); font-size: 42%; }
+
+  /* ---- 해시태그(2026-09-17 사용자 요청) — 카드마다 근거 아래 국가·회사유형·법규명·AI사명/모델명·
+     보안용어를 인스타그램 스타일 해시태그로 노출. data-type 속성은 화면에 안 보이지만 나중에
+     이 데이터를 파싱해 체인으로 엮을 때 카테고리를 바로 구분하도록 남겨둔다. ---- */
+  .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 9px; }
+  .tag { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 600; }
+  .tag-country { color: var(--accent); }
+  .tag-org { color: var(--flag); }
+  .tag-law { color: var(--acq); }
+  .tag-ai { color: var(--new); }
+  .tag-security { color: var(--hi); }
+
+  a { color: var(--accent); }
+  @media (max-width: 560px) {
+    .evt { grid-template-columns: 1fr; }
+    header.rpt h1 { font-size: 1.7rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="mail">
+
+  <div class="envelope">
+    <div>제목 &nbsp; <b>AI SEC Pulse (2026-09-20)</b></div>
+    <div>발송 &nbsp; 매일 오전 10:00 (KST) &nbsp;·&nbsp; 수신자: AI 보안·컴플라이언스 담당</div>
+  </div>
+
+  <div class="sheet">
+
+    <header class="rpt">
+      <div class="brandline">Daily Briefing</div>
+      <h1>AI SEC Pulse</h1>
+      <div class="date">2026년 9월 20일 일요일 · No. 017</div>
+      <p class="byline">reported by elishaJEY</p>
+    </header>
+
+    <!-- ============ 1 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">1</span><h2>법 · 컴플라이언스 모니터링</h2></div>
+      <p class="board-link"><a href="https://elishajey.github.io/ai-compliance-board/">AI SEC Compliance Dashboard</a></p>
+
+      <div class="item">
+        <div class="row1">
+          <span class="badge b-new">신규</span>
+          <span class="badge b-t3">T3</span>
+          <span class="jur">EU</span>
+        </div>
+        <h3>EU가 AI법을 서류로 묻기 시작했다 — 1차 점검 대상은 채용 이력서 선별·소매금융 신용평가·의료 분류 3개 분야</h3>
+        <p>규제당국이 제품을 보는 게 아니라 <b>문서를 내놓으라고</b> 요구하는 단계로 넘어갔습니다. 유럽 AI Office와 24개 회원국 시장감시당국이 2026년 9월 중 AI법 <b>첫 점검 파동</b>을 시작했고, <b>2026-09-10</b>에 AI Office가 채용 이력서 자동선별 도구를 1차 점검 대상에 포함한다고 확인한 것으로 전해집니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>. 1차 요청을 이끄는 곳은 프랑스 <b>CNIL</b>, 독일 <b>BfDI</b>, 스페인 <b>AESIA</b>입니다.<br><br> 요구되는 것이 무엇인지가 보안 담당자에게 중요한 대목입니다. 당국이 확인하려는 것은 제공자가 <b>제11조·부속서 IV 기술문서</b>를 갖추고 최신 상태로 유지했는지이고, 거기에는 <b>버전관리된 모델 가중치</b>, <b>전처리 스크립트</b>, <b>사람의 개입·무효화(override) 메커니즘</b>에 대한 상세 기술이 들어갑니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>. 즉 점검을 통과하는 능력은 모델 성능이 아니라 형상관리·이력보존 능력에 달려 있습니다.<br><br> 이것이 가능해진 배경은 <b>2026-08-02 고위험 시스템 일반 경과기간 종료</b>입니다 <sub class="tgrade">[T2]</sub>. 지난 2026-09-10 호에서 다룬 "Digital Omnibus로 AI Office가 GPAI 기반 시스템의 단일 감독 창구가 됐다"는 변화가, 이번에는 실제 자료제출 요구라는 행위로 넘어간 단계로 볼 수 있습니다. 다만 아래 등급 설명대로 1차 출처를 확정하지 못했으므로 확정 사실로 취급하면 안 됩니다.<br><br> 실무 준비 항목은 이미 공개 해설이 정리해 두고 있습니다. 기술문서 팩은 시장 출시·서비스 개시 <b>전에</b> 완성돼 있어야 하고 이후에도 계속 갱신돼야 하며, 시스템 설명·개발 과정·학습 데이터 명세·성능 지표·위험관리 조치·변경 이력이 한 묶음으로 유지돼야 한다는 것이 공통된 설명입니다 <sub class="tgrade">[T2]</sub>. EU 고객에게 채용·여신·상담 자동화를 납품하는 국내 사업자라면, 점검 요청이 오는 시점에 새로 만들 수 없는 것이 바로 이 <b>과거 버전의 가중치와 전처리 코드</b>라서 보존 정책부터 먼저 손봐야 합니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p><b>제11조·부속서 IV가 요구하는 것</b> — 고위험 AI 시스템 제공자는 시장 출시 또는 서비스 개시 전에 기술문서를 작성해야 하고, 그 문서는 규정 준수를 입증할 수 있도록 최신 상태로 유지돼야 합니다 <sub class="tgrade">[T1]</sub>. 부속서 IV는 그 문서가 담아야 할 항목을 열거하는데, 시스템의 일반 설명, 개발 방법과 사용한 도구, 학습·검증·시험 데이터의 출처와 전처리, 성능 지표와 한계, 사람 감독 조치, 위험관리 체계, 변경 이력이 포함됩니다.</p>
+          <p><b>왜 "보안" 항목인가</b> — 표면적으로는 품질·투명성 문서로 보이지만, 실제로 요구되는 산출물은 보안 조직이 다루는 것과 겹칩니다. 어떤 가중치가 언제 어떤 데이터로 만들어졌는지를 사후에 증명하려면 <b>아티팩트 무결성</b>과 <b>접근 이력</b>이 남아 있어야 하고, 전처리 스크립트를 제출한다는 것은 그 코드가 <b>변조되지 않았음</b>을 함께 보여야 한다는 뜻입니다. 사람 개입·무효화 메커니즘의 기술은 곧 권한 설계 문서입니다.</p>
+          <p><b>1차 대상 3개 분야의 공통점</b> — 채용 이력서 선별, 소매금융 신용평가, 민간 의료기관의 환자 분류는 모두 개인에게 직접 불이익이 갈 수 있는 결정이고, AI법이 고위험으로 분류해 둔 영역입니다. 점검이 이쪽부터 시작된다는 것은 당국이 "가장 설명하기 어려운 결정"부터 문서를 보겠다는 뜻으로 읽힙니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>.</p>
+          <p><b>등급 근거</b> — 점검 착수 사실과 1차 대상 분야, 주도 당국, 2026-09-10 확인 시점은 복수의 2차 매체가 거의 동일한 문장으로 전하고 있으나, 집행위·AI Office의 1차 공지를 이 시점에 직접 확인하지 못했습니다. 매체 간 서술이 거의 같다는 점은 독립 확인이 아니라 공통 출처를 재인용했을 가능성도 함께 뜻하므로 <sub class="tgrade">[T3]</sub>로 두고 <b>재확인 필요</b>로 표시합니다. 반면 제11조·부속서 IV의 요구사항과 2026-08-02 경과기간 종료는 조문·공식 해설로 확인되는 부분입니다.</p>
+        </div></details>
+        <div class="src">근거: <a href="https://artificialintelligenceact.eu/article/11/">AI Act 제11조(기술문서) 조문</a> · <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-11">EC AI Act Service Desk 제11조</a> · <a href="https://www.opsintel.io/blog/eu-ai-office-begins-automated-hiring-tool-inspections-first-enforcement-wave-under-article-50-starts-september-2026/">1차 점검 착수 보도(2026-09)</a> · <a href="https://www.glocertinternational.com/resources/guides/eu-ai-act-technical-documentation-article-11/">제11조 기술문서 팩 실무 해설</a></div>
+        <div class="tags">
+          <span class="tag tag-country" data-type="country">#EU</span>
+          <span class="tag tag-org" data-type="org">#플랫폼사</span>
+          <span class="tag tag-org" data-type="org">#금융사</span>
+          <span class="tag tag-org" data-type="org">#정부기관</span>
+          <span class="tag tag-law" data-type="law">#AI법</span>
+          <span class="tag tag-security" data-type="security">#기술문서</span>
+          <span class="tag tag-security" data-type="security">#형상관리</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">2</span><h2>AI 보안 · 서비스 동향 3선</h2></div>
+
+      <!-- Trend A -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-high">중요도 높음</span>
+          <span class="badge b-t2">T2 · 벤더 권고 + 전문매체</span>
+        </div>
+        <h3>AI 제품 결함 18건이 한 번에 수정됐다 — 고객이 패치를 적용할 수 없는 계층에서 났고 다수가 권한 상승이다</h3>
+        <p>Microsoft가 <b>2026-09-18</b> 공개한 보안 권고에서 Azure 클라우드와 Copilot 계열 AI 제품의 취약점 <b>18건</b>을 수정했고, 그 <b>다수가 권한 상승</b> 계열입니다 <sub class="tgrade">[T2]</sub>. 등급이 높은 것은 <b>Microsoft 365 Copilot</b>의 명령 주입(<b>CVE-2026-85885</b>, CVSS 9.9), <b>Copilot Studio</b>의 암호 서명 검증 미흡에 따른 권한 상승(<b>CVE-2026-80098</b>, CVSS 9.3), <b>Azure AI Language Authoring</b>의 중요 기능 인증 누락(<b>CVE-2026-70352</b>), <b>Azure Database for PostgreSQL</b>의 부적절한 인가(<b>CVE-2026-85878</b>, CVSS 9.9)입니다.<br><br> Copilot·Microsoft 365 Copilot·Copilot Business Chat·Azure Machine Learning·Dataverse·Fabric 쪽에서는 정보 노출 계열이 함께 정리됐습니다 <sub class="tgrade">[T2]</sub>.<br><br> 지난 2026-09-19 호에서 다룬 Azure AI Foundry의 인증 누락(<b>CVE-2026-85889</b>, CVSS 10.0)은 단발 사건이 아니라 같은 주기에 한 번에 정리된 18건 묶음의 일부였던 것으로 이번에 드러났습니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p><b>왜 "권한 상승"이 이 계층에서 특히 나쁜가</b> — 권한 상승은 이미 제한된 접근권을 가진 쪽이 더 높은 권한을 얻는 결함입니다. 사내 서버라면 "공격자가 먼저 발판을 잡아야 한다"는 전제가 방어선 역할을 하지만, 멀티테넌트 SaaS의 AI 제어평면에서는 <b>정상 테넌트 사용자</b>가 그 발판에 해당합니다. 초기 접근이라는 장벽이 사실상 이미 넘겨져 있는 상태에서 시작한다는 뜻입니다.</p>
+          <p><b>명령 주입과 서명 검증 미흡의 차이</b> — <b>CVE-2026-85885</b>는 입력이 명령으로 해석되는 계열이라 프롬프트·도구 호출 경로 통제의 문제이고, <b>CVE-2026-80098</b>은 암호 서명 검증이 부실해 위조된 객체가 정품으로 통과되는 계열입니다. 후자는 "신뢰 판단 자체가 틀렸다"는 쪽이라 애플리케이션 단에서 우회 통제를 만들기가 더 어렵습니다 <sub class="tgrade">[T2]</sub>.</p>
+          <p><b>인증 누락이 반복된다는 점</b> — <b>CVE-2026-70352</b>(Azure AI Language Authoring)와 직전 호의 <b>CVE-2026-85889</b>(Azure AI Foundry)는 모두 "중요 기능에 대한 인증 누락" 유형입니다. 서로 다른 제품에서 같은 유형이 잇달아 나온 것은 신규 AI 서비스가 빠르게 붙는 구간에서 인증 게이트가 일관되게 적용되지 못했다는 신호로 읽을 수 있습니다. 다만 이는 공개된 분류명에서 도출한 해석이며 Microsoft가 공통 원인을 인정한 것은 아닙니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>.</p>
+          <p><b>지금 할 것</b> — ① 이 계층은 고객이 패치를 적용하는 대상이 아니므로 "우리가 언제 안전해졌는지"를 벤더 권고의 수정 시점으로 기록해 둡니다 ② Copilot Studio·Power Platform 환경에서 <b>제작자(maker) 권한</b>을 가진 계정 수를 세고 줄입니다 ③ Copilot 계열의 감사로그를 보존 기간과 함께 실제로 수집하고 있는지 확인합니다 ④ Azure AI 서비스의 <b>네트워크 노출 범위</b>(공개 엔드포인트 여부)와 관리 API 접근 주체를 재점검합니다 ⑤ 테넌트 간 데이터 경계에 의존하는 구성을 목록화합니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 276" role="img" aria-label="Microsoft 2026년 9월 AI·클라우드 권고 18건이 놓인 계층 도해: 결함은 벤더가 운영하는 SaaS 제어평면에서 발생해 고객이 패치를 적용할 수 없고, 고객에게 남는 통제 수단은 권한 축소와 감사로그 확보로 좁혀진다">
+              <text x="20" y="22" class="s-sub">수정된 18건이 놓인 자리와 고객에게 남는 통제</text>
+
+              <rect x="24" y="44" width="250" height="118" rx="3" class="s-box-accent"/>
+              <text x="36" y="70" class="s-lab t-accent">벤더 제어평면</text>
+              <text x="36" y="92" class="s-sub">Copilot Studio · M365 Copilot</text>
+              <text x="36" y="110" class="s-sub">Azure AI Language · Azure ML</text>
+              <text x="36" y="128" class="s-sub">Dataverse · Fabric</text>
+              <text x="36" y="150" class="s-sub">수정 18건 · 다수가 권한 상승</text>
+
+              <path class="s-arw" d="M278 103 L342 103 M332 98 L342 103 L332 108"/>
+              <text x="284" y="94" class="s-sub">패치 불가</text>
+
+              <rect x="346" y="44" width="250" height="118" rx="3" class="s-box"/>
+              <text x="358" y="70" class="s-lab">고객에게 남는 통제</text>
+              <text x="358" y="92" class="s-sub">제작자 권한 계정 축소</text>
+              <text x="358" y="110" class="s-sub">감사로그 수집 · 보존</text>
+              <text x="358" y="128" class="s-sub">관리 API 접근 주체 점검</text>
+              <text x="358" y="150" class="s-sub">테넌트 경계 의존 구성 목록화</text>
+
+              <line x1="24" y1="184" x2="596" y2="184" class="s-axis"/>
+              <text x="24" y="206" class="s-sub">CVE-2026-85885  M365 Copilot  명령 주입  CVSS 9.9</text>
+              <text x="24" y="224" class="s-sub">CVE-2026-85878  Azure PostgreSQL  부적절한 인가  CVSS 9.9</text>
+              <text x="24" y="242" class="s-sub">CVE-2026-80098  Copilot Studio  서명 검증 미흡  CVSS 9.3</text>
+              <text x="24" y="260" class="s-sub">CVE-2026-70352  Azure AI Language  인증 누락</text>
+            </svg>
+          </div>
+          <figcaption>왼쪽 상자가 결함이 난 자리이고, 고객이 손댈 수 있는 것은 오른쪽뿐이다. <span class="src">근거: Microsoft 보안 권고 기반 보도, 2026-09-18 <sub class="tgrade">[T2]</sub></span></figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag tag-country" data-type="country">#미국</span>
+          <span class="tag tag-org" data-type="org">#플랫폼사</span>
+          <span class="tag tag-org" data-type="org">#통신사</span>
+          <span class="tag tag-ai" data-type="ai">#Copilot</span>
+          <span class="tag tag-security" data-type="security">#권한상승</span>
+          <span class="tag tag-security" data-type="security">#명령주입</span>
+          <span class="tag tag-security" data-type="security">#인증누락</span>
+        </div>
+      </div>
+
+      <!-- Trend B -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-mid">중요도 중간~높음</span>
+          <span class="badge b-t2">T2 · 회사 발표 + 전문매체</span>
+        </div>
+        <h3>유출 방지 제품의 감시 지점이 파일·메일에서 프롬프트로 옮겨 갔다 — 오래된 범주에 7,200만 달러가 다시 들어왔다</h3>
+        <p>데이터 유출 방지(DLP)는 20년 된 범주인데 이번 주 여기에 <b>7,200만 달러</b>가 들어왔습니다. AI 네이티브 DLP를 표방하는 <b>MIND</b>가 <b>2026-09-17</b> 시리즈 B를 발표했고, <b>Crosspoint Capital Partners</b>가 주도했으며 기존 투자자 <b>YL Ventures</b>·<b>Paladin Capital Group</b>이 참여해 누적 조달액은 <b>1억 1,200만 달러</b>가 됐습니다 <sub class="tgrade">[T2]</sub>.<br><br> 조달 속도가 가팔라졌습니다. 2024-10 시드 1,100만 달러, 2025-06 시리즈 A 3,000만 달러에 이어 1년 3개월 만에 7,200만 달러이고, 회사는 지난 1년간 매출 17배·고객 8배 성장을 주장합니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>.<br><br> 자금이 다시 들어오는 이유는 제품이 새로워서가 아니라 <b>감시해야 할 지점이 바뀌었기 때문</b>입니다. 회사 설명은 GenAI·에이전틱 AI·기존 IT 환경을 가로질러 실시간으로 데이터 이벤트를 분석한다는 것인데, 이는 기존 DLP가 보던 메일 첨부·엔드포인트 파일·웹 업로드 바깥에 프롬프트 입력과 에이전트 도구 호출이라는 새 경로가 생겼다는 뜻입니다 <sub class="tgrade">[T2]</sub>.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p><b>왜 기존 DLP로는 안 되나</b> — 전통적 DLP는 "파일이 경계를 넘는 순간"을 잡도록 설계됐습니다. 생성형 AI에서는 유출이 파일 이동이 아니라 <b>텍스트 입력</b>으로 일어나고, 에이전트 환경에서는 사람이 아니라 <b>도구 호출</b>이 데이터를 옮깁니다. 통제 지점을 파일 시스템·메일 게이트웨이에 두면 두 경로 모두 관측되지 않습니다.</p>
+          <p><b>검토할 때 볼 것</b> — 이 계열 제품은 데모가 잘 나오는 반면 운영 부담이 큽니다. ① 프롬프트를 실제로 어디에서 가로채는지(브라우저 확장·엔드포인트 에이전트·네트워크 프록시·API 게이트웨이 중 무엇인지) ② 사내에서 승인되지 않은 AI 서비스로 가는 트래픽까지 보이는지 ③ 에이전트가 쓰는 <b>비대화형 API 호출</b>을 사람의 입력과 구분해 정책을 다르게 걸 수 있는지 ④ 차단 시 업무 중단 비용을 누가 판단하는지가 실제 도입 성패를 가릅니다.</p>
+          <p><b>수치의 성격</b> — 조달액·투자자·누적액은 복수 매체가 일치해 보도했습니다. 반면 매출 17배·고객 8배는 회사가 발표한 상대 성장률이고 절대 규모가 공개되지 않아 독립 검증이 불가능하므로 <sub class="tgrade">[T3]</sub>로 둡니다. 시작 규모가 작으면 배수는 쉽게 커집니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 252" role="img" aria-label="데이터 유출 방지 제품의 감시 지점 이동 도해: 왼쪽 기존 DLP는 메일 첨부와 엔드포인트 파일, 웹 업로드를 보았고, 오른쪽 AI 시대에는 프롬프트 입력과 모델 출력, 에이전트 도구 호출이 새 감시 지점이 된다. 아래 축은 시드 1,100만 달러에서 시리즈 B 7,200만 달러까지의 조달 경로를 보여준다">
+              <text x="20" y="22" class="s-sub">감시 지점이 옮겨간 자리</text>
+
+              <rect x="24" y="44" width="250" height="96" rx="3" class="s-box"/>
+              <text x="36" y="70" class="s-lab">기존 DLP</text>
+              <text x="36" y="92" class="s-sub">메일 첨부 · 엔드포인트 파일</text>
+              <text x="36" y="110" class="s-sub">웹 업로드 · 외부 저장장치</text>
+              <text x="36" y="128" class="s-sub">단위: 파일이 경계를 넘는 순간</text>
+
+              <path class="s-arw" d="M278 92 L342 92 M332 87 L342 92 L332 97"/>
+
+              <rect x="346" y="44" width="250" height="96" rx="3" class="s-box-accent"/>
+              <text x="358" y="70" class="s-lab t-accent">AI 시대 DLP</text>
+              <text x="358" y="92" class="s-sub">프롬프트 입력 · 모델 출력</text>
+              <text x="358" y="110" class="s-sub">에이전트 도구 호출</text>
+              <text x="358" y="128" class="s-sub">단위: 텍스트와 도구 호출</text>
+
+              <line x1="40" y1="182" x2="580" y2="182" class="s-axis"/>
+              <circle cx="110" cy="182" r="4" class="dot-new"/>
+              <circle cx="330" cy="182" r="4" class="dot-new"/>
+              <circle cx="530" cy="182" r="5" class="dot-acq"/>
+              <text x="110" y="204" class="s-sub" text-anchor="middle">2024-10 시드</text>
+              <text x="110" y="220" class="s-sub" text-anchor="middle">1,100만 달러</text>
+              <text x="330" y="204" class="s-sub" text-anchor="middle">2025-06 시리즈 A</text>
+              <text x="330" y="220" class="s-sub" text-anchor="middle">3,000만 달러</text>
+              <text x="530" y="204" class="s-sub" text-anchor="middle">2026-09 시리즈 B</text>
+              <text x="530" y="220" class="s-sub" text-anchor="middle">7,200만 달러</text>
+              <text x="40" y="244" class="s-sub">누적 1억 1,200만 달러 · 주도 Crosspoint Capital Partners</text>
+            </svg>
+          </div>
+          <figcaption>왼쪽에서 오른쪽으로 갈수록 통제해야 할 단위가 파일에서 텍스트·도구 호출로 내려간다. <span class="src">근거: MIND 시리즈 B 발표 및 관련 보도, 2026-09-17 <sub class="tgrade">[T2]</sub></span></figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag tag-country" data-type="country">#미국</span>
+          <span class="tag tag-org" data-type="org">#플랫폼사</span>
+          <span class="tag tag-org" data-type="org">#금융사</span>
+          <span class="tag tag-security" data-type="security">#DLP</span>
+          <span class="tag tag-security" data-type="security">#프롬프트유출</span>
+          <span class="tag tag-security" data-type="security">#에이전트도구호출</span>
+        </div>
+      </div>
+
+      <!-- Trend C -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-mid">중요도 중간</span>
+          <span class="badge b-t2">T2 · 회사 발표 + 전문매체</span>
+        </div>
+        <h3>AI 레드팀을 팔던 회사가 수직 소프트웨어 지주사로 들어갔다 — 레드티밍이 서비스에서 사내 기능으로 이동한다</h3>
+        <p>AI 레드티밍·관측(observability) 전문업체 <b>Haize Labs</b>가 <b>2026-09-17</b> 토론토 소재 소프트웨어 지주회사 <b>Beacon</b>에 인수됐습니다 <sub class="tgrade">[T2]</sub>. 인수가는 공개되지 않았습니다.<br><br> 인수 후 구조가 이 건의 핵심입니다. Haize Labs 팀은 Beacon의 <b>응용 AI 연구조직</b>이 되고 대표는 VP of AI research로 합류하며, Beacon은 이 레드티밍·관측 역량을 자사가 보유한 <b>소프트웨어 회사 45곳</b>에 적용할 계획이라고 밝혔습니다 <sub class="tgrade">[T2]</sub>.<br><br> 바깥에 팔던 역량이 한 포트폴리오 안으로 들어가면 그 서비스를 쓰던 조직에는 <b>공급 연속성</b> 문제가 생깁니다. AI 레드티밍은 아직 표준화된 조달 품목이 아니라 특정 팀의 방법론에 의존하는 비중이 커서, 계약이 승계되더라도 수행 인력과 우선순위가 그대로 유지된다는 보장이 없습니다. 다만 이는 이 인수 건에 대해 공개된 계약 조건이 아니라 인수 구조에서 나오는 일반적 위험으로 보는 것이 맞습니다 <sub class="tgrade">[T3 · 재확인 필요]</sub>.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p><b>Haize Labs가 하던 일</b> — 모델과 에이전트를 배포 전에 공격자 관점으로 두들겨 실패 양식을 찾아내는 레드티밍, 그리고 배포 후 이상 동작을 계속 관측하는 관측 도구를 함께 다뤄 왔습니다. "테스트"와 "운영 감시"를 한 팀이 붙잡는 구성이 이 계열의 특징입니다.</p>
+          <p><b>왜 수직 소프트웨어 지주사가 사는가</b> — Beacon은 필수 산업용 소프트웨어 회사를 사들여 운영하는 쪽입니다. 포트폴리오 45곳이 각자 AI 기능을 붙이는 국면에서, 레드티밍·관측을 회사마다 따로 조달하는 것보다 공용 조직으로 한 번 만들어 내부에 배분하는 쪽이 싸집니다. AI 안전성 검증이 <b>공용 플랫폼 기능</b>으로 내려가는 흐름으로 읽힙니다.</p>
+          <p><b>국내 조직이 볼 대목</b> — 외부 레드팀을 쓰고 있다면 계약서에서 ① 인수·합병 시 계약 승계 조항 ② 수행 인력 변경 통지 의무 ③ 산출물(테스트 케이스·발견 내역)의 소유권과 반출 권리를 확인해 두는 편이 안전합니다. 산출물을 우리 쪽 저장소로 계속 내려받아 두면 공급사가 바뀌어도 축적된 테스트 케이스는 남습니다.</p>
+          <p><b>등급 근거</b> — 인수 사실·발표일·조직 편입 구조·포트폴리오 45곳은 회사 발표와 이를 인용한 복수 매체 보도로 확인됩니다. 인수가는 비공개이며, 기존 고객 계약의 처리 방침은 공개되지 않았습니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 244" role="img" aria-label="AI 레드티밍 공급 구조의 변화 도해: 인수 전에는 독립 벤더가 여러 외부 고객에게 레드티밍과 관측을 제공했고, 인수 후에는 같은 역량이 지주사의 응용 AI 연구조직이 되어 포트폴리오 소프트웨어 45곳 내부로 향한다">
+              <text x="20" y="22" class="s-sub">레드티밍 역량이 향하는 방향</text>
+
+              <text x="24" y="48" class="s-sub">인수 전</text>
+              <rect x="24" y="58" width="122" height="48" rx="3" class="s-box"/>
+              <text x="34" y="80" class="s-lab">Haize Labs</text>
+              <text x="34" y="98" class="s-sub">레드티밍 · 관측</text>
+
+              <path class="s-arw" d="M150 82 L186 62 M178 60 L186 62 L181 68"/>
+              <path class="s-arw" d="M150 82 L186 112 M181 106 L186 112 L178 114"/>
+              <path class="s-arw" d="M150 82 L186 162 M182 155 L186 162 L178 163"/>
+              <rect x="190" y="46" width="96" height="30" rx="3" class="s-box"/>
+              <text x="200" y="66" class="s-sub">외부 고객 A</text>
+              <rect x="190" y="96" width="96" height="30" rx="3" class="s-box"/>
+              <text x="200" y="116" class="s-sub">외부 고객 B</text>
+              <rect x="190" y="146" width="96" height="30" rx="3" class="s-box"/>
+              <text x="200" y="166" class="s-sub">외부 고객 C</text>
+
+              <line x1="310" y1="40" x2="310" y2="186" class="s-axis"/>
+
+              <text x="334" y="48" class="s-sub">인수 후 (2026-09-17)</text>
+              <rect x="334" y="58" width="130" height="48" rx="3" class="s-box-accent"/>
+              <text x="344" y="80" class="s-lab t-accent">Beacon 내부</text>
+              <text x="344" y="98" class="s-sub">응용 AI 연구조직</text>
+
+              <path class="s-arw" d="M468 82 L492 82 M484 77 L492 82 L484 87"/>
+
+              <rect x="496" y="46" width="100" height="130" rx="3" class="s-box"/>
+              <text x="506" y="76" class="s-lab">포트폴리오</text>
+              <text x="506" y="98" class="s-sub">소프트웨어</text>
+              <text x="506" y="116" class="s-sub">45곳</text>
+              <text x="506" y="142" class="s-sub">내부 배분</text>
+
+              <text x="24" y="214" class="s-sub">인수가 비공개 · Haize 대표는 VP of AI research 합류</text>
+              <text x="24" y="232" class="s-sub">기존 외부 고객 계약의 처리 방침은 공개되지 않음</text>
+            </svg>
+          </div>
+          <figcaption>세로선 왼쪽이 인수 전, 오른쪽이 인수 후의 공급 방향이다. <span class="src">근거: Beacon의 Haize Labs 인수 발표 및 관련 보도, 2026-09-17 <sub class="tgrade">[T2]</sub></span></figcaption>
+        </figure>
+        <div class="tags">
+          <span class="tag tag-country" data-type="country">#미국</span>
+          <span class="tag tag-org" data-type="org">#플랫폼사</span>
+          <span class="tag tag-ai" data-type="ai">#HaizeLabs</span>
+          <span class="tag tag-security" data-type="security">#레드티밍</span>
+          <span class="tag tag-security" data-type="security">#관측성</span>
+          <span class="tag tag-security" data-type="security">#공급연속성</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">3</span><h2>솔루션 동향 · 세미나 / 컨퍼런스</h2></div>
+      <div class="sub-h">오늘의 솔루션 픽</div>
+      <div class="sol">
+        <b>Mavenir — NetAIShield</b> <span class="m"><sub class="tgrade">[T2 · 2026-09-18 출시 발표]</sub></span><br>
+        음성·메시징·데이터 통신서비스를 대상으로 한 AI 네이티브 사기 방지 제품입니다. 통신망 위에서 위협 신호를 포착해 가입자를 실시간으로 보호하는 인텔리전스 계층을 제공한다는 설명입니다. 통신사 관점에서 확인할 것은 <b>기존 시그널링·과금 시스템과의 연동 범위</b>와 <b>오탐 시 정상 호·메시지가 끊기지 않게 하는 완충 설계</b>입니다.
+      </div>
+      <div class="sol">
+        <b>Cohesity — Agent Resilience</b> <span class="m"><sub class="tgrade">[T2 · 2026-09-18 발표]</sub></span><br>
+        AI 에이전트를 떠받치는 인프라를 찾아내 보호하고 복구하는 Cohesity Data Cloud의 신규 기능입니다. 모델을 지키는 제품이 아니라 <b>에이전트가 의존하는 상태·설정·데이터</b>를 백업·복구 대상으로 편입한다는 접근이 특징입니다. 검토 시에는 벡터 저장소와 에이전트 설정 디렉터리가 실제 보호 범위에 들어가는지를 먼저 보면 됩니다.
+      </div>
+      <div class="sol">
+        <b>Akuity — Agentic Control Plane · MCP Server</b> <span class="m"><sub class="tgrade">[T2 · 2026-09-18 발표]</sub></span><br>
+        에이전트가 수행하는 작업을 한 지점에서 통제하는 제어평면과 MCP 서버를 함께 내놓은 구성입니다. 에이전트가 운영 시스템을 직접 건드리기 시작하면 <b>누가 어떤 권한으로 무엇을 호출했는지</b>가 감사 대상이 되므로, 이 계열 제품은 도구 호출 로그의 보존 형식과 승인 흐름 삽입 지점을 함께 확인해야 합니다.
+      </div>
+
+      <div class="sub-h">등록 진행 중인 행사</div>
+      <div class="evt">
+        <div>
+          <div class="when">2026-09-22 (화) 08:30–17:30 · 서울 여의도 FKI타워</div>
+          <div class="name">금융 테크 컨퍼런스 2026 — AI × Security × Finance</div>
+          <div class="where">금융권 AI 보안·컴플라이언스 실무 트랙 · 무료 · 사전등록 마감 09-21 (<b>D-1</b>)</div>
+        </div>
+        <a class="apply" href="https://event-us.kr/bylinenetwork/event/132790">등록 →</a>
+      </div>
+    </section>
+
+    <footer class="rpt-foot">
+      <p><b>AI SEC Pulse</b> · 일일 발송 매일 오전 10:00 KST · No. 017 (2026-09-20)</p>
+      <div class="legend">
+        <span><b>T1</b> 원문·공식 확인</span><span><b>T2</b> 공신력 확인</span><span><b>T3</b> 재확인 필요</span>
+        <span>변동확인 / 계류 / 신규</span>
+        <span>중요도 높음 / 중간</span>
+      </div>
+      <p>근거: 각 항목 발행기관·전문매체·평가기관 공개 자료. 수치·일정은 발송 시점 재확인 대상이며, T3 항목은 의사결정 전 원문 확인이 필요합니다.</p>
+      <p>구독 관리 · 지난 호 · 제보: (수신자 안내에 따름)</p>
+    </footer>
+
+  </div>
+</div>
