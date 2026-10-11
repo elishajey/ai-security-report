@@ -1,0 +1,445 @@
+<title>AI SEC Pulse</title>
+<meta name="description" content="법·컴플라이언스 모니터링, AI 보안·서비스 동향 3선(도해), 솔루션·컨퍼런스 안내를 담은 일일 브리핑 — 2026-10-11 호">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg: #e9edf1;
+    --paper: #ffffff;
+    --paper-2: #f5f7f9;
+    --ink: #17202c;
+    --ink-soft: #3c4858;
+    --muted: #62707f;
+    --line: #d7dee5;
+    --line-strong: #b6c0cb;
+    --accent: #0d7c86;
+    --accent-soft: #d2eaeb;
+    --acq: #ad5019;
+    --new: #2d7a4d;
+    --flag: #916b00;
+    --hi: #b4381f;        /* importance high */
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1016;
+      --paper: #151c25;
+      --paper-2: #1a222d;
+      --ink: #e6ebf1;
+      --ink-soft: #b7c1cd;
+      --muted: #8a96a5;
+      --line: #29323d;
+      --line-strong: #3a4551;
+      --accent: #3cb8c3;
+      --accent-soft: #102f35;
+      --acq: #d9853f;
+      --new: #5bad7c;
+      --flag: #d5aa3d;
+      --hi: #e07a5f;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1016; --paper: #151c25; --paper-2: #1a222d;
+    --ink: #e6ebf1; --ink-soft: #b7c1cd; --muted: #8a96a5;
+    --line: #29323d; --line-strong: #3a4551;
+    --accent: #3cb8c3; --accent-soft: #102f35;
+    --acq: #d9853f; --new: #5bad7c; --flag: #d5aa3d; --hi: #e07a5f;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .mail { max-width: 680px; margin: 0 auto; padding: 28px 16px 80px; }
+  .envelope {
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 4px; padding: 10px 14px; margin-bottom: 14px;
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted);
+  }
+  .envelope b { color: var(--ink-soft); font-weight: 600; }
+
+  .sheet {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(20,28,40,.05), 0 14px 40px -20px rgba(20,28,40,.22);
+  }
+
+  header.rpt {
+    padding: 30px 28px 22px; border-bottom: 3px solid var(--ink);
+  }
+  header.rpt .brandline {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
+  }
+  header.rpt h1 {
+    font-family: "Archivo", sans-serif; font-weight: 700;
+    font-size: 2rem; letter-spacing: -.02em; margin: 8px 0 6px;
+  }
+  header.rpt .date {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--ink-soft);
+  }
+  header.rpt .cadence {
+    margin-top: 12px; font-size: 12.5px; color: var(--muted);
+  }
+  header.rpt .byline {
+    text-align: right; margin: 10px 0 0; font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; color: var(--muted);
+  }
+
+  section.blk { padding: 26px 28px; border-top: 1px solid var(--line); }
+  section.blk:first-of-type { border-top: 0; }
+  .sec-tag {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px;
+  }
+  .sec-no {
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 12px;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 2px; padding: 1px 6px;
+  }
+  .sec-tag h2 {
+    font-family: "Archivo", sans-serif; font-weight: 700; font-size: 1.2rem;
+    letter-spacing: -.01em; margin: 0;
+  }
+  .sec-lede { margin: 0 0 18px; font-size: .9rem; color: var(--muted); }
+  .board-link { margin: 0 0 16px; margin-left: 31.2px; font-size: .85rem; }
+  .board-link a {
+    color: var(--accent); font-weight: 600; text-decoration: none;
+    background: var(--accent-soft); padding: 3px 10px; border-radius: 4px; display: inline-block;
+  }
+  .board-link a::after { content: " ↗"; font-weight: 400; }
+
+  /* ---- section 1 : compliance items ---- */
+  .item { padding: 14px 0; border-top: 1px dashed var(--line); }
+  .item:first-child { border-top: 0; padding-top: 0; }
+  .item .row1 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .badge {
+    font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .05em;
+    padding: 1px 6px; border-radius: 2px; border: 1px solid currentColor; white-space: nowrap;
+  }
+  .b-new { color: var(--new); }
+  .b-upd { color: var(--accent); }
+  .b-hold { color: var(--muted); }
+  .b-t1 { color: var(--accent); }
+  .b-t2 { color: var(--ink-soft); }
+  .b-t3 { color: var(--flag); }
+  .jur {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted);
+  }
+  .item h3 {
+    font-family: "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 1.05rem;
+    margin: 6px 0 4px;
+  }
+  .item p { margin: 0; font-size: .82rem; color: var(--ink-soft); }
+  .item .src {
+    margin-top: 5px; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--muted);
+  }
+  .item .src a { color: var(--accent); word-break: break-all; }
+
+  /* ---- 자세히 보기 드롭다운 (§1·§2 공용) ---- */
+  .more { margin-top: 8px; }
+  .more > summary {
+    cursor: pointer; font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    font-weight: 600; color: var(--accent); list-style: revert;
+  }
+  .more > summary::marker { color: var(--accent); }
+  .more-body {
+    margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line);
+    font-size: .82rem; color: var(--ink-soft);
+  }
+  .more-body p { margin: 0 0 8px; }
+  .more-body p:last-child { margin-bottom: 0; }
+
+  .quiet-note {
+    margin-top: 16px; padding: 10px 12px; background: var(--paper-2);
+    border-left: 3px solid var(--line-strong); font-size: .84rem; color: var(--muted);
+  }
+
+  /* ---- section 2 : trend cards with figures ---- */
+  .trend-card { padding: 20px 0; border-top: 1px solid var(--line); }
+  .trend-card:first-of-type { border-top: 0; padding-top: 4px; }
+  .tc-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .imp {
+    font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .04em;
+    padding: 1px 6px; border-radius: 2px;
+  }
+  .imp-high { background: transparent; color: var(--hi); border: 2px solid var(--hi); font-weight: 700; }
+  .imp-mid { background: #0d7c86; color: #fff; }
+  .trend-card h3 {
+    font-family: "Archivo", sans-serif; font-weight: 600; font-size: 1.05rem;
+    letter-spacing: -.005em; margin: 0 0 6px;
+  }
+  .trend-card > p { margin: 0 0 14px; font-size: .89rem; color: var(--ink-soft); }
+  figure {
+    margin: 0; background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 3px; padding: 14px 12px 8px;
+  }
+  figure .scroll-x { overflow-x: auto; }
+  svg.dg { display: block; width: 100%; height: auto; color: var(--ink); min-width: 520px; }
+  figcaption {
+    margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line);
+    font-size: .8rem; color: var(--muted);
+  }
+  figcaption .src { font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+
+  .take { color: var(--accent); }
+
+  /* svg helpers */
+  .s-box { fill: var(--paper); stroke: var(--line-strong); stroke-width: 1.4; }
+  .s-box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+  .s-lab { fill: var(--ink); font-family: "IBM Plex Sans", sans-serif; font-size: 12px; }
+  .s-sub { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .02em; }
+  .s-arw { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+  .s-axis { stroke: var(--line-strong); stroke-width: 1.4; }
+  .s-tick { fill: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+  .dot-acq { fill: var(--acq); }
+  .dot-new { fill: var(--new); }
+  .t-acq { fill: var(--acq); color: var(--acq); }
+  .t-new { fill: var(--new); color: var(--new); }
+  .t-accent { fill: var(--accent); color: var(--accent); }
+  .node-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+  .head-mut { fill: var(--muted); }
+  .head-acc { fill: var(--accent); }
+  .link-acc { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+
+  /* ---- section 3 : solutions + events ---- */
+  .sub-h {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); margin: 18px 0 8px;
+  }
+  .sub-h:first-child { margin-top: 0; }
+  .sol { padding: 10px 0; border-top: 1px dashed var(--line); font-size: .88rem; }
+  .sol:first-of-type { border-top: 0; }
+  .sol b { font-weight: 600; }
+  .sol .m { color: var(--muted); font-family: "IBM Plex Mono", monospace; font-size: 10.5px; }
+
+  .evt {
+    display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: center;
+    padding: 12px 0; border-top: 1px dashed var(--line);
+  }
+  .evt:first-of-type { border-top: 0; }
+  .evt .when {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--accent);
+  }
+  .evt .name { font-weight: 600; font-size: .92rem; margin: 2px 0 2px; }
+  .evt .where { font-size: .82rem; color: var(--muted); }
+  .apply {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .04em;
+    text-decoration: none; color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 3px; padding: 6px 12px; white-space: nowrap;
+  }
+  .apply:hover { background: var(--accent-soft); }
+
+  footer.rpt-foot {
+    padding: 20px 28px 26px; border-top: 3px solid var(--ink);
+    font-size: .8rem; color: var(--muted);
+  }
+  footer.rpt-foot p { margin: 0 0 6px; }
+  footer.rpt-foot code { font-family: "IBM Plex Mono", monospace; font-size: .76rem; color: var(--ink-soft); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin: 10px 0; }
+  .legend span { font-family: "IBM Plex Mono", monospace; font-size: 10px; }
+  .tgrade { color: var(--muted); font-size: 42%; }
+
+  /* ---- 해시태그(2026-09-17 사용자 요청) — 카드마다 근거 아래 국가·회사유형·법규명·AI사명/모델명·
+     보안용어를 인스타그램 스타일 해시태그로 노출. data-type 속성은 화면에 안 보이지만 나중에
+     이 데이터를 파싱해 체인으로 엮을 때 카테고리를 바로 구분하도록 남겨둔다. ---- */
+  .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 9px; }
+  .tag { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 600; }
+  .tag-country { color: var(--accent); }
+  .tag-org { color: var(--flag); }
+  .tag-law { color: var(--acq); }
+  .tag-ai { color: var(--new); }
+  .tag-security { color: var(--hi); }
+
+  a { color: var(--accent); }
+  @media (max-width: 560px) {
+    .evt { grid-template-columns: 1fr; }
+    header.rpt h1 { font-size: 1.7rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="mail">
+  <div class="envelope">
+    <div>제목 &nbsp; <b>AI SEC Pulse (2026-10-12)</b></div>
+    <div>발송 &nbsp; 매일 오전 10:00 (KST) &nbsp;·&nbsp; 수신자: AI 보안·컴플라이언스 담당</div>
+  </div>
+
+  <div class="sheet">
+
+    <header class="rpt">
+      <div class="brandline">Daily Briefing</div>
+      <h1>AI SEC Pulse</h1>
+      <div class="date">2026년 10월 12일 월요일 · No. 039</div>
+      <p class="byline">reported by elishaJEY</p>
+    </header>
+
+    <!-- ============ 1 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">1</span><h2>법 · 컴플라이언스 모니터링</h2></div>
+      <p class="board-link"><a href="https://elishajey.github.io/ai-compliance-board/">AI SEC Compliance Dashboard</a></p>
+      <div class="item">
+        <div class="row1">
+          <span class="badge b-hold">계류 · 상태 유지</span>
+          <span class="jur">한국</span>
+        </div>
+        <h3>배달 라이더에게 콜을 배분하는 AI는 규제 대상이 아니라는 답이 나왔다 &mdash; 노무관리가 목록에 없기 때문이다</h3>
+        <p>라이더에게 어떤 배달 건을 줄지 AI가 정하는데 그 기준을 당사자가 알 수 없다는 지적에, 배경훈 과학기술정보통신부 장관 겸 부총리는 <b>노무관리</b> 분야가 지금의 <b>고영향 AI</b> 적용 분야에 들어가 있지 않다고 답했습니다<sub class="tgrade">[T2]</sub>. 그러면서 제도 개선이 필요한지는 검토하겠다고 덧붙였습니다<sub class="tgrade">[T2]</sub>. <b>AI 기본법</b>은 제34조에서 고영향 AI 사업자에게 위험관리·설명·인적 감독·문서 보관 의무를 지우지만, 그 의무가 작동하려면 그 AI가 법이 열거한 고영향 영역 안에 들어와야 합니다. 설명을 요구하거나 거부당했을 때 다툴 절차가 충분하지 않다는 것도 같은 자리에서 지적됐고<sub class="tgrade">[T2]</sub>, 이는 <b>과기정통부</b>가 지난 10월 11일 호에서 다룬 의료 AI 고영향 판정 문제를 답했던 그 국정감사와 같은 자리입니다. 통신사가 내놓는 AI 에이전트가 외부 모델의 판단으로 외부 쇼핑 플랫폼에서 결제를 끝냈을 때 누가 책임지는지도 현행법에 분명한 규정이 없다는 지적이 전문가들 사이에서 나오고 있어, 적용 분야 목록에 기대는 구조는 에이전트가 끼어드는 서비스에서 같은 공백을 반복할 수 있습니다<sub class="tgrade">[T2]</sub>.</p>
+        <p><b class="take">[elisha&rsquo;s take]</b> &mdash; 우리 서비스가 고영향 AI인지 따질 때 &ldquo;영향이 큰가&rdquo;가 아니라 &ldquo;법이 적은 영역 목록에 걸리는가&rdquo;로 먼저 끊고, 목록 밖이라 의무가 안 걸리는 기능은 그 판단 근거를 문서로 남겨 두는 편이 안전합니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p>이번 국정감사에서 문제가 된 구조는 이렇습니다. 배달 플랫폼이 라이더에게 배달 건을 배분할 때 AI가 우선순위를 정하는데, 라이더는 자기에게 콜이 적게 오는 이유를 알 수 없습니다. AI 기본법은 AI가 낸 주요 결과의 기준을 영향받는 사람이 설명받을 수 있도록 하고 있지만, 그 설명을 요구하는 절차와 거부당했을 때 이의를 제기하는 절차가 법에 충분히 짜여 있지 않다는 것이 지적의 핵심이었습니다<sub class="tgrade">[T2]</sub>.<br><br>정부 답변은 두 갈래로 읽어야 합니다. <b>적용 분야 판단:</b> 노무관리는 현재 고영향 AI 적용 분야가 아니라는 것이 과기정통부의 입장입니다. 즉 배차 알고리즘에는 제34조 책무가 걸리지 않는다는 해석입니다. <b>제도 개선 여부:</b> 장관은 개선 필요성을 검토하겠다고만 답했고, 고시 개정이나 시행령 손질 같은 구체적 수단·시점은 제시하지 않았습니다. 그래서 이 사안은 아직 조문이 바뀐 변경이 아니라 바뀔 수 있다는 신호 단계입니다<sub class="tgrade">[T2]</sub>.</p>
+          <p>AI 보안 관점에서 이 공백이 왜 중요한지는 거버넌스 쪽에서 드러납니다. NIST AI RMF의 Govern 기능은 AI 시스템의 책임 소재와 감독 체계를 조직이 미리 정해 두도록 요구하는데, 법이 걸리지 않는 영역이라고 해서 조직 내부의 위험관리까지 면제되는 것은 아닙니다. 법 의무가 없는 구간일수록 사고가 났을 때 기댈 외부 기준이 없어 내부 통제 설계가 그대로 노출됩니다. 다만 이 연결은 두 문서를 나란히 읽은 해석이고, AI 기본법이 그렇게 분류하고 있다는 뜻은 아닙니다.</p>
+          <p><b class="take">[elisha&rsquo;s take]</b> &mdash; &#9312; 사내 AI 목록을 꺼내 각 기능이 법이 열거한 고영향 영역에 걸리는지를 한 줄씩 적고, 걸리지 않는다고 본 것은 그 근거를 같이 남깁니다. &#9313; 목록 밖이라 제34조 책무가 없는 기능이라도 결과 기준을 설명해 달라는 요청이 들어올 통로는 미리 만들어 둡니다. 법이 아니라 민원·분쟁에서 먼저 옵니다. &#9314; 에이전트가 외부 모델·외부 플랫폼을 거쳐 실제 행위를 끝내는 기능은 책임 분기점을 계약서 수준에서 정리해 둡니다. 현행법에 답이 없다는 지적이 이미 공개된 상태입니다. &#9315; 노무·인사 영역이 적용 분야에 추가되는지 여부는 과기정통부 공고와 국민참여입법센터 입법예고 목록으로 계속 봅니다.</p>
+        </div></details>
+        <div class="src">근거: <a href="https://www.ddaily.co.kr/page/view/2026100615295566141">디지털데일리 &mdash; 국감 배차 알고리즘 질의와 부총리 답변</a> · <a href="https://www.ddaily.co.kr/page/view/2026100618532680968">디지털데일리 &mdash; 과방위 국감 종합</a> · <a href="https://www.law.go.kr/lsInfoP.do?lsiSeq=268543">국가법령정보센터 AI 기본법 조문</a> · <a href="https://opinion.lawmaking.go.kr">국민참여입법센터</a> · <a href="https://www.businesspost.co.kr/BP?command=article_view&amp;num=448817">비즈니스포스트 &mdash; AI 에이전트 책임소재 전문가 지적</a></div>
+        <div class="tags"><span class="tag tag-country" data-type="country">#한국</span><span class="tag tag-org" data-type="org">#정부기관</span><span class="tag tag-org" data-type="org">#플랫폼사</span><span class="tag tag-org" data-type="org">#통신사</span><span class="tag tag-law" data-type="law">#AI기본법</span><span class="tag tag-law" data-type="law">#고영향AI</span><span class="tag tag-security" data-type="security">#AI에이전트</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 2 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">2</span><h2>AI 보안 · 서비스 동향 3선</h2></div>
+
+      <!-- Trend A -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-high">중요도 높음</span>
+          <span class="badge">국정감사 제출자료</span>
+        </div>
+        <h3>정부가 무상으로 빌려 쓴 AI가 넉 달에 취약점 523건을 찾았다 &mdash; 다음 해 이 사업 예산은 0원이다</h3>
+        <p>과기정통부가 2026년 6월부터 9월 말까지 고성능 AI로 취약점을 점검해 모두 <b>523건</b>을 찾아냈습니다<sub class="tgrade">[T2]</sub>. 내역은 민간 <b>주요정보통신기반시설</b> 16개사에서 304건, 상용 소프트웨어 5개사에서 135건, 오픈소스 144종에서 84건입니다<sub class="tgrade">[T2]</sub>. 쓴 도구는 오픈AI가 GTAC 프로그램으로 무상 제공한 <b>GPT-5.5 Cyber</b>였고, 별도 예산은 편성되지 않았습니다<sub class="tgrade">[T2]</sub>. 과기정통부는 다음 해 예산을 요청했지만 정부안에 반영되지 않았다고 설명했습니다<sub class="tgrade">[T2]</sub>. 지난 10월 7일 호에서 AI 성능 예산과 AI 안전 예산의 격차를 다뤘는데, 이번에는 그 격차가 이미 성과를 낸 점검 사업에서 0원으로 나타난 사례입니다.</p>
+        <p><b class="take">[elisha&rsquo;s take]</b> &mdash; 외부 벤더가 무상으로 돌려 주는 AI 점검은 계약이 끝나면 같이 끝나므로, 이번에 받은 취약점 목록을 우리 자산 기준으로 다시 정리해 두는 쪽이 도구보다 오래 남습니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p>점검 대상은 점검에 동의한 20개사 가운데 16개사였고, 구성은 대기업 6곳, 중견기업 3곳, 중소기업 2곳, 비영리단체 5곳으로 전해졌습니다<sub class="tgrade">[T2]</sub>. 나머지 4곳은 추가 점검 예정입니다<sub class="tgrade">[T2]</sub>. 발견된 취약점은 해당 기업에 통보해 보완하도록 했다고 설명됐습니다<sub class="tgrade">[T2]</sub>. 수치는 2026년 10월 6일 국회 과학기술정보방송통신위원회 국정감사에서 의원실이 공개한 과기정통부 제출자료를 매체들이 보도한 것이고, 기사별로 동의 기업 수와 완료 기업 수 표기에 차이가 있어 세부 숫자는 원자료 확인이 필요합니다<sub class="tgrade">[T3]</sub>.</p>
+          <p>짚어야 할 대목은 도구의 출처입니다. 민간 주요정보통신기반시설을 점검한 도구가 해외 벤더의 무상 제공분이었다는 것은, 점검 과정에서 다룬 대상 시스템 정보가 어떤 범위로 처리됐는지가 계약 조건에 달려 있었다는 뜻입니다. 공개 자료에서는 그 조건이 확인되지 않습니다<sub class="tgrade">[T3]</sub>. 또 이 점검을 계속 돌릴 예산이 없다면 올해 찾은 523건은 한 번의 스냅샷으로 남고, 그 뒤에 들어오는 변경·신규 자산은 같은 방식으로 검증되지 않습니다. 이 구조는 MITRE SAFE-AI가 통제를 매핑하는 Environment 요소, 즉 AI를 돌리는 기반 환경 쪽의 지속 검증 문제와 같은 성격의 위험으로 볼 수 있습니다.</p>
+          <p><b class="take">[elisha&rsquo;s take]</b> &mdash; &#9312; 우리 조직이 이번 점검 대상 16개사에 포함됐는지 확인하고, 포함됐다면 통보받은 취약점의 조치 상태를 자체 추적표로 옮깁니다. 벤더 리포트가 유일한 기록이면 계약 종료와 함께 사라집니다. &#9313; AI 기반 취약점 점검을 상시로 쓰려면 올해처럼 무상 제공에 기대지 않는 경로를 지금 설계합니다. 사내 도구화든 유상 계약이든 예산 사이클 안에 올려야 합니다. &#9314; 외부 AI 도구에 자산 정보를 입력하는 점검은 데이터 처리 범위·보관 기간·재학습 여부를 계약 문구로 확인하고, 안 되면 대상 범위를 비식별 구간으로 줄입니다. &#9315; 점검 결과가 원격코드실행처럼 즉시 악용 가능한 유형에 몰려 있는지 분류해 조치 순서를 정합니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 196" role="img" aria-label="2026년 6월부터 9월까지 고성능 AI 취약점 점검 결과 막대그래프. 민간 주요정보통신기반시설 16개사에서 304건, 상용 소프트웨어 5개사에서 135건, 오픈소스 144종에서 84건이 나와 합계 523건이며, 다음 해 이 사업 예산은 0원이다">
+              <text x="10" y="22" class="s-sub t-accent">2026-06 ~ 09 · 고성능 AI 취약점 점검 결과</text>
+              <text x="10" y="57" class="s-lab" font-size="11">민간 기반시설 16개사</text>
+              <rect x="150" y="45" width="380" height="18" rx="2" class="s-box-accent"/>
+              <text x="538" y="58" class="s-lab" font-size="11" font-weight="600">304</text>
+              <text x="10" y="93" class="s-lab" font-size="11">상용SW 5개사</text>
+              <rect x="150" y="81" width="169" height="18" rx="2" class="s-box"/>
+              <text x="327" y="94" class="s-lab" font-size="11">135</text>
+              <text x="10" y="129" class="s-lab" font-size="11">오픈소스 144종</text>
+              <rect x="150" y="117" width="105" height="18" rx="2" class="s-box"/>
+              <text x="263" y="130" class="s-lab" font-size="11">84</text>
+              <line x1="150" y1="146" x2="586" y2="146" class="s-axis"/>
+              <text x="150" y="165" class="s-sub">합계 523건 · 도구 GPT-5.5 Cyber(무상 제공)</text>
+              <rect x="150" y="173" width="190" height="18" rx="2" class="s-box"/>
+              <text x="245" y="186" text-anchor="middle" class="s-lab" font-size="11">다음 해 점검 예산 0원</text>
+            </svg>
+          </div>
+          <figcaption>세 줄의 막대는 점검 대상 유형별 발견 건수이고, 아래 상자는 같은 사업의 다음 해 예산이다. <span class="src">근거: <a href="https://www.mt.co.kr/politics/2026/10/06/2026100616381981230">머니투데이</a> · <a href="https://www.sentv.co.kr/article/view/sentv202610080125">서울경제TV</a> · <a href="https://www.news1.kr/it-science/security-hacking/6311158">뉴스1</a></span></figcaption>
+        </figure>
+        <div class="tags"><span class="tag tag-country" data-type="country">#한국</span><span class="tag tag-org" data-type="org">#정부기관</span><span class="tag tag-org" data-type="org">#벤더사</span><span class="tag tag-ai" data-type="ai">#GPT-5.5Cyber</span><span class="tag tag-security" data-type="security">#취약점점검</span><span class="tag tag-security" data-type="security">#주요정보통신기반시설</span></div>
+      </div>
+
+      <!-- Trend B -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-mid">중요도 중간~높음</span>
+          <span class="badge">대회 주관사 공개</span>
+        </div>
+        <h3>해킹 대회 과녁에 AI 인프라가 처음 올라왔고, 올라온 것은 대체로 뚫렸다</h3>
+        <p>Pwn2Own Ireland 2026에서 AI 인프라와 코딩 에이전트 부문이 처음 과녁으로 들어왔고, 주요 표적이 실제로 공격에 넘어갔습니다<sub class="tgrade">[T2]</sub>. LLM 게이트웨이인 <b>LiteLLM</b>은 입력 검증 결함과 코드 인젝션을 엮어 리버스 셸까지 열린 시연으로 4만 달러가 지급됐고, 같은 표적에 대한 다른 팀의 4개 버그 연쇄에 1만 5천 달러가 더 나갔습니다<sub class="tgrade">[T2]</sub>. <b>OpenAI Codex</b>는 인자 인젝션 하나로 넘어가 4만 달러, Oracle Autonomous AI Database와 추론 서버 <b>Dynamo</b>도 각각 4만 달러 시연이 성립했습니다<sub class="tgrade">[T2]</sub>. 대회 첫날만 제로데이 32건에 38만 8,500달러가 지급됐고, 이틀차까지 누적 지급액은 60만 8,500달러를 넘었습니다<sub class="tgrade">[T2]</sub>.</p>
+        <p><b class="take">[elisha&rsquo;s take]</b> &mdash; LLM 게이트웨이와 코딩 에이전트를 &ldquo;모델 앞단 유틸리티&rdquo;로 취급해 왔다면 등급을 올려야 합니다. 대회에서 리버스 셸까지 간 경로는 운영 환경에서도 같은 자리에 있습니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p>표적별로 성립한 공격 성격이 서로 다릅니다. <b>LiteLLM:</b> 부적절한 입력 검증에 코드 인젝션을 이어 붙여 리버스 셸을 얻는 흐름으로, 게이트웨이가 받는 요청 파라미터가 그대로 실행 경로에 닿았다는 뜻입니다. OWASP LLM Top 10의 LLM01(프롬프트 인젝션)이 모델 응답을 비틀는 데 그치는 것과 달리, 이쪽은 게이트웨이 프로세스에서 코드가 돌아가는 단계까지 갔습니다. <b>OpenAI Codex:</b> 인자 인젝션 단일 버그였습니다. 코딩 에이전트가 외부에서 받은 문자열을 명령 인자로 넘길 때 경계를 두지 않으면 버그 하나로 끝난다는 사례입니다. <b>Oracle Autonomous AI Database:</b> 4만 달러 시연 외에 3건의 충돌과 1건의 제로데이를 묶은 4개 버그 연쇄에 6,250달러가 지급됐습니다. 충돌이란 다른 참가자나 벤더가 이미 알고 있던 버그와 겹쳤다는 뜻으로, 지급액이 깎입니다. <b>Chroma:</b> 같은 부문에서 공격 시도 1건은 실패했습니다<sub class="tgrade">[T2]</sub>.</p>
+          <p>중요도를 중간~높음으로 둔 이유는 등급 체계 쪽에 있습니다. 대회에서 시연된 제로데이는 벤더에 비공개로 넘겨져 패치 기한이 돌아가므로, 공개 시점에는 CVE 번호도 CVSS 점수도 붙지 않습니다. 즉 지금은 악용 확인도, 수치 심각도도 없는 상태입니다. 다만 표적이 운영 환경에서 모델 앞단에 놓이는 구성요소라는 점에서 벤더 대응이 진행 중인 단계로 보고 판정했습니다. 대회 전체 최종 지급액과 제로데이 총 건수는 매체 간 숫자가 엇갈려 여기서는 쓰지 않았습니다<sub class="tgrade">[T3]</sub>.</p>
+          <p><b class="take">[elisha&rsquo;s take]</b> &mdash; &#9312; LiteLLM을 쓰고 있다면 버전과 패치 공지를 지금 확인하고, 게이트웨이가 외부에서 직접 닿는 구성인지부터 끊습니다. 내부망 전용으로 돌릴 수 있으면 그게 가장 싼 완화입니다. &#9313; 코딩 에이전트가 레포·이슈·웹에서 가져온 문자열을 셸 인자로 넘기는 경로가 있는지 사내 파이프라인에서 찾습니다. 인자 인젝션은 설정 한 줄로 막히는 경우가 많습니다. &#9314; AI 추론 서버와 벡터 저장소를 자산 목록에 정식 항목으로 올리고, 패치 담당자를 지정합니다. 대회 표적이 된 품목이 곧 공격자 표적 목록입니다. &#9315; 패치가 공개되기까지는 번호가 없으므로, 벤더 공지 구독을 CVE 피드와 별도로 걸어 둡니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 200" role="img" aria-label="Pwn2Own Ireland 2026 AI 인프라·코딩 에이전트 부문 표적별 지급액 막대그래프. LiteLLM 5만 5천 달러, Oracle Autonomous AI Database 4만 6,250달러, OpenAI Codex 4만 달러, Dynamo 4만 달러이며 Chroma 공격 1건은 실패했다">
+              <text x="10" y="22" class="s-sub t-accent">AI 인프라 · 코딩 에이전트 부문 표적별 지급액</text>
+              <text x="10" y="52" class="s-lab" font-size="11">LiteLLM</text>
+              <rect x="175" y="40" width="330" height="18" rx="2" class="s-box-accent"/>
+              <text x="513" y="53" class="s-lab" font-size="11" font-weight="600">$55,000</text>
+              <text x="10" y="88" class="s-lab" font-size="11">Oracle AI DB</text>
+              <rect x="175" y="76" width="278" height="18" rx="2" class="s-box"/>
+              <text x="461" y="89" class="s-lab" font-size="11">$46,250</text>
+              <text x="10" y="124" class="s-lab" font-size="11">OpenAI Codex</text>
+              <rect x="175" y="112" width="240" height="18" rx="2" class="s-box"/>
+              <text x="423" y="125" class="s-lab" font-size="11">$40,000</text>
+              <text x="10" y="160" class="s-lab" font-size="11">Dynamo</text>
+              <rect x="175" y="148" width="240" height="18" rx="2" class="s-box"/>
+              <text x="423" y="161" class="s-lab" font-size="11">$40,000</text>
+              <line x1="175" y1="176" x2="586" y2="176" class="s-axis"/>
+              <text x="175" y="192" class="s-sub">같은 부문 Chroma 공격 1건은 실패 · 첫날 전체 제로데이 32건</text>
+            </svg>
+          </div>
+          <figcaption>막대 길이는 표적별 누적 지급액이고, 같은 표적에 두 팀이 성공한 경우는 합산했다. <span class="src">근거: <a href="https://www.zerodayinitiative.com/blog/2026/10/6/pwn2own-ireland-2026-day-one-results">ZDI 1일차</a> · <a href="https://www.zerodayinitiative.com/blog/2026/10/8/pwn2own-ireland-2026-day-three-results-amp-master-of-pwn">ZDI 3일차</a> · <a href="https://www.scworld.com/brief/hackers-demonstrate-vulnerabilities-at-pwn2own-ireland-2026-targeting-printers-phones-and-ai">SC World</a></span></figcaption>
+        </figure>
+        <div class="tags"><span class="tag tag-org" data-type="org">#벤더사</span><span class="tag tag-ai" data-type="ai">#LiteLLM</span><span class="tag tag-ai" data-type="ai">#OpenAICodex</span><span class="tag tag-ai" data-type="ai">#Dynamo</span><span class="tag tag-law" data-type="law">#OWASP_LLM_Top10</span><span class="tag tag-security" data-type="security">#코드인젝션</span><span class="tag tag-security" data-type="security">#인자인젝션</span></div>
+      </div>
+
+      <!-- Trend C -->
+      <div class="trend-card">
+        <div class="tc-meta">
+          <span class="imp imp-mid">중요도 중간</span>
+          <span class="badge">분석기관 보고서</span>
+        </div>
+        <h3>중국 AI 개발사가 내놓은 857개 모델 중 안전평가를 공개한 것은 31개였다</h3>
+        <p>분석기관 <b>SemiAnalysis</b>가 중국 AI 개발사 9곳의 2021년 이후 모델 출시 857건을 세어 보니, 특정 모델에 연결되는 안전평가 결과가 공개된 것은 31건(3.6%)이었습니다<sub class="tgrade">[T2]</sub>. 출시 시점이나 그 전에 공개된 것은 9건(1.1%)에 그쳤고, 813건은 안전평가 공개를 찾을 수 없었습니다<sub class="tgrade">[T2]</sub>. 공개까지 걸린 기간은 중간값 42일, 최대 349일이었습니다<sub class="tgrade">[T2]</sub>. 대상은 알리바바·바이트댄스·텐센트·바이두·<b>DeepSeek</b>·문샷·Z.AI·미니맥스·스텝펀이며, 집계 기준일은 2026년 9월 15일입니다<sub class="tgrade">[T2]</sub>. 보고서 자체가 공개가 없다는 것이 시험을 안 했다는 뜻은 아니라고 못박고 있어, 이 수치는 공개 관행의 지표로 읽어야 합니다<sub class="tgrade">[T2]</sub>.</p>
+        <p><b class="take">[elisha&rsquo;s take]</b> &mdash; 중국산 공개가중치 모델을 도입 후보에 올렸다면 벤더가 주는 안전평가 문서를 기다리지 말고 우리 쪽 레드팀 결과를 도입 판단의 근거로 삼는 편이 현실적입니다.</p>
+        <details class="more"><summary>자세히 보기</summary><div class="more-body">
+          <p>보고서가 짚은 제도적 배경은 규제의 초점 차이입니다. 중국의 구속력 있는 규칙은 주로 서비스와 그 서비스가 이용자에게 미치는 영향을 규율하고, 프런티어 개발사가 모델의 능력 자체를 놓고 벌이는 위험평가는 그 대상이 아니라는 설명입니다<sub class="tgrade">[T2]</sub>. 그래서 생성형 AI 서비스 등록·심사 제도는 돌아가는데 출시 시점의 안전평가 공개는 쌓이지 않는 그림이 됩니다.</p>
+          <p>이 수치를 도입 심사에 쓸 때 조심할 대목이 둘 있습니다. 첫째, 비공개가 미시험을 뜻하지 않는다는 보고서의 유보를 그대로 가져가야 합니다. 공개 관행이 다른 것과 모델이 더 위험한 것은 다른 이야기입니다. 둘째, 보고서 발행일을 10월 8일로 적은 매체와 로이터 보도일 10월 9일이 엇갈립니다<sub class="tgrade">[T3]</sub>. ISO/IEC 42001이 요구하는 공급자 평가 기록 관점에서 보면, 공급자가 제출하지 못하는 평가 자료는 도입 측이 스스로 생산해 기록으로 남겨야 하는 항목으로 넘어옵니다.</p>
+          <p><b class="take">[elisha&rsquo;s take]</b> &mdash; &#9312; 모델 도입 체크리스트에 &ldquo;출시 시점 안전평가 공개 여부&rdquo;를 항목으로 넣되, 없음이 곧 탈락이 아니라 자체 평가 의무가 생기는 조건으로 설계합니다. &#9313; 공개가중치 모델은 사내 레드팀 결과를 모델 버전별로 보관해, 버전 교체 때 재평가 범위를 좁힐 수 있게 합니다. &#9314; 평가 공개가 출시보다 중간 42일 늦는다는 점을 감안해, 새 버전은 공개 자료가 붙기 전까지 제한된 용도에서만 돌립니다. &#9315; 공급자 평가 자료 공백은 계약서의 보증·고지 조항으로 메울 수 있는지 법무와 함께 확인합니다.</p>
+        </div></details>
+        <figure>
+          <div class="scroll-x">
+            <svg class="dg" viewBox="0 0 620 190" role="img" aria-label="중국 AI 개발사 9곳의 모델 출시 857건 중 안전평가 결과가 공개된 것은 31건으로 3.6퍼센트, 출시 시점이나 그 전에 공개된 것은 9건으로 1.1퍼센트임을 보여주는 비례 막대 그림">
+              <text x="10" y="20" class="s-sub t-accent">중국 AI 개발사 9곳 · 2021 ~ 2026-09-15 출시분</text>
+              <text x="50" y="42" class="s-lab" font-size="11">출시 857건</text>
+              <rect x="50" y="50" width="520" height="20" rx="2" class="s-box"/>
+              <rect x="50" y="90" width="19" height="20" rx="2" class="s-box-accent"/>
+              <text x="78" y="105" class="s-lab" font-size="11">안전평가 공개 31건 (3.6%)</text>
+              <rect x="50" y="130" width="6" height="20" rx="2" class="s-box-accent"/>
+              <text x="64" y="145" class="s-lab" font-size="11">출시 시점 공개 9건 (1.1%)</text>
+              <line x1="50" y1="162" x2="586" y2="162" class="s-axis"/>
+              <text x="50" y="180" class="s-sub">공개까지 중간 42일 · 최대 349일 · 813건은 공개 없음</text>
+            </svg>
+          </div>
+          <figcaption>세 막대는 같은 축척이며, 아래 두 막대가 가늘어 보이는 것이 공개 비율 차이 그 자체다. <span class="src">근거: <a href="https://ca.finance.yahoo.com/news/china-ai-developers-publish-safety-123833929.html">로이터 보도</a> · <a href="https://aiweekly.co/alerts/semianalysis-36-of-857-chinese-ai-releases-had-safety-evals">SemiAnalysis 집계 요약</a></span></figcaption>
+        </figure>
+        <div class="tags"><span class="tag tag-country" data-type="country">#중국</span><span class="tag tag-org" data-type="org">#리서치기관</span><span class="tag tag-org" data-type="org">#벤더사</span><span class="tag tag-ai" data-type="ai">#DeepSeek</span><span class="tag tag-law" data-type="law">#ISO42001</span><span class="tag tag-security" data-type="security">#모델안전평가</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 3 ============ -->
+    <section class="blk">
+      <div class="sec-tag"><span class="sec-no">3</span><h2>솔루션 동향 · 세미나 / 컨퍼런스</h2></div>
+      <div class="sub-h">오늘의 솔루션 픽</div>
+      <div class="sol">
+        <b>Rein Security &mdash; 에이전트 런타임 통제, 시리즈 A 2,500만 달러</b> <span class="m"><sub class="tgrade">[T2 · 2026-10-08 발표]</sub></span><br>
+        에이전트가 실제로 행동하는 런타임에 사이드카를 붙여, 그 에이전트가 어떤 코드를 돌리고 어떤 자원에 닿는지를 보안팀이 보게 하는 제품입니다. 해로운 행동은 실행 전에 막는다고 안내합니다. 고객 데이터를 게이트웨이나 프록시로 우회시키지 않는 구성이라는 점을 차별점으로 내세웁니다. 글릴롯 캐피털과 시에나 벤처캐피털이 공동 주도했고 누적 조달액은 3,500만 달러입니다. 2024년 설립, 뉴욕과 텔아비브 공동 본사. 에이전트 수천 개·행동 수백만 건을 보호한다는 수치와 매출 8배 성장은 회사 발표이고 독립 검증은 확인되지 않았습니다.
+      </div>
+      <div class="sol">
+        <b>Vijil &mdash; DART, 다중 에이전트 적대적 레드팀 출시</b> <span class="m"><sub class="tgrade">[T2 · 2026-10-07 출시]</sub></span><br>
+        공격자 역할의 에이전트 여러 개를 붙여 대상 에이전트를 여러 턴에 걸쳐 두드리고, 대상의 반응에 따라 공격을 바꿔 가며 보안 결함과 정책 위반을 찾는 도구입니다. 모델만 보는 것이 아니라 도구 사용·메모리·여러 턴에 걸친 행동까지 대상에 넣습니다. CI/CD에 붙이는 API와 코딩 에이전트 플러그인을 함께 제공해 배포 전후에 모두 돌릴 수 있습니다. 시험 항목은 OWASP·MITRE 기반 분류에서 출발하되 조직별 위험 목록으로 바꿀 수 있습니다. 기존 대안보다 결함을 1.5배까지 더 찾는다는 비교는 벤더 주장이고 독립 평가는 확인되지 않았습니다.
+      </div>
+    </section>
+
+    <footer class="rpt-foot">
+      <p><b>AI SEC Pulse</b> · 일일 발송 매일 오전 10:00 KST · No. 039 (2026-10-12)</p>
+      <div class="legend">
+        <span><b>T1</b> 원문·공식 확인</span><span><b>T2</b> 공신력 확인</span><span><b>T3</b> 재확인 필요</span>
+      </div>
+      <div class="legend"><span><b>중요도 높음</b> KEV 등재·CVSS9+ 또는 즉시조치·의사결정 필요한 확정 사안</span></div>
+      <div class="legend"><span><b>중요도 중간~높음</b> CVSS7~8.9(악용 미확인) 또는 벤더 대응 진행 중·초안 단계</span></div>
+      <div class="legend"><span><b>중요도 중간</b> CVSS4~6.9 또는 참고용 업계 동향, 직접 조치 없음</span></div>
+      <div class="legend"><span><b>중요도 낮음</b> CVSS4 미만 또는 배경 정보 성격</span></div>
+      <p>구독 관리 · 지난 호 · 제보: (수신자 안내에 따름)</p>
+    </footer>
+
+  </div>
+</div>
