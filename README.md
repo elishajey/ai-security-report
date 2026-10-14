@@ -3,5 +3,5 @@
 일일 AI 보안·컴플라이언스 브리핑의 공개 열람용 미러. 매일 발송되는 이메일의
 "전체 리포트(웹)" 링크가 이 사이트로 연결된다.
 
-- **웹**: https://elishajey.github.io/ai-security-report/
-- `reports/<날짜>.html` — 그날 리포트. 공개 사이트에는 가장 최근 하루치만 둔다.
+- **웹**: https://elishajey.github.io/pulse/
+- `<날짜>.html` — 그날 리포트(주소는 /pulse/<날짜>). 공개 사이트에는 가장 최근 하루치만 둔다.

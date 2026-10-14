@@ -5,7 +5,7 @@
 # 않아 Pages에 반영되지 않는다.
 set -euo pipefail
 
-TARGETS=(index.html reports/*.html)
+TARGETS=(*.html)
 FOUND=0
 
 check_pattern() {
