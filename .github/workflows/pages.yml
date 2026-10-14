@@ -35,14 +35,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      # index.html(최신 호) + reports/*.html(날짜별 아카이브, 이메일 링크가 가리키는 대상)만
+      # 루트의 HTML(index.html = 최신 호, <날짜>.html = 그날 리포트 — /pulse/<날짜> 로 열림)만
       # 배포 산출물로 쓴다 — 스크립트·README 등은 제외.
       - name: build site dir
         run: |
           mkdir -p _site
-          cp index.html _site/
-          mkdir -p _site/reports
-          cp reports/*.html _site/reports/ 2>/dev/null || true
+          cp *.html _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
